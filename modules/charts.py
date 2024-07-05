@@ -10,6 +10,7 @@ def create_charts(df):
                         names=genero_counts.index, 
                         title='Número de Internos según el Género',
                         hole=0.3)  # Added hole to make it a donut chart
+    
     charts['Genero'] = fig_genero
 
     fig_edad = px.histogram(df, 
@@ -111,7 +112,10 @@ def create_charts(df):
                             y=sexualidad_counts.values, 
                             title='Sexualidad con la que se identifica',
                             labels={'x': 'Sexualidad', 'y': 'Número de Internos'})
+    
+
     charts['Sexualidad'] = fig_sexualidad
+
 
     series_list2 = [df['P109_1'], df['P109_2'], df['P109_3']]
     concatenated_series = pd.concat(series_list2)
@@ -128,7 +132,7 @@ def create_charts(df):
     fig_amigos_delitos = px.bar(amigos_delitos_counts, 
                                 x=amigos_delitos_counts.index, 
                                 y=amigos_delitos_counts.values,
-                                title='Se relacionó con amigoss que Cometían Delitos antes de los 18 Años')
+                                title='Se relacionó con amigos que Cometían Delitos antes de los 18 Años')
     charts['Amigos-delitos'] = fig_amigos_delitos
 
     pandillas_counts = df['P136'].value_counts()
@@ -141,7 +145,7 @@ def create_charts(df):
     discriminacion_counts = df['P139'].value_counts()
     fig_discriminacion = px.bar(x=discriminacion_counts.index, 
                                 y=discriminacion_counts.values,
-                                title='Tuvo alguna experiencia de Discriminación',
+                                title='Tuvo alguna experiencia de Discriminación anteriormente',
                                 labels={'x': 'Experiencia de Discriminación', 'y': 'Número de Internos'})
     charts['ExDiscriminación'] = fig_discriminacion
 
@@ -169,10 +173,10 @@ def create_charts(df):
                                         hole=0.3)  # Added hole to make it a donut chart
     charts['Padres-alcohol'] = fig_consumo_alcohol_padres
 
-    consumo_drogas_padres_counts = df['P127'].value_counts()
+    consumo_drogas_padres_counts = df['P128'].value_counts()
     fig_consumo_drogas_padres = px.pie(values=consumo_drogas_padres_counts.values, 
                                         names=consumo_drogas_padres_counts.index, 
-                                        title='Consumo de Alcohol por parte de Padres o Figuras Parentales',
+                                        title='Consumo de Drogas por parte de Padres o Figuras Parentales',
                                         hole=0.3)  # Added hole to make it a donut chart
     charts['Padres-drogas'] = fig_consumo_drogas_padres
 

@@ -5,7 +5,7 @@ from modules.downloads import generar_descarga_csv
 
 def mostrar_sidebar(df_origin):
     st.sidebar.title("Navegación")
-    opcion_principal = st.sidebar.selectbox("Selecciona un aspecto principal", ["Aspectos Demográficos", "Aspectos Sociales", "Aspectos Penitenciarios", "Aspectos Delictivos", "Mapas"])
+    opcion_principal = st.sidebar.selectbox("Selecciona un aspecto principal", ["Aspectos Demográficos", "Aspectos Sociales", "Condiciones Dentro del Centro Penitenciario", "Aspectos Delictivos", "Mapas"])
 
     # Filtros para departamentos, provincias y distritos
     departamento = st.sidebar.multiselect('Departamentos', sorted(df_origin['DD'].dropna().unique()))
@@ -46,7 +46,7 @@ def mostrar_resultados(opcion_principal, df_filtered, df_establecimientos, df_ma
         mostrar_aspecto1(df_filtered, charts)
     elif opcion_principal == "Aspectos Sociales":
         mostrar_aspecto2(df_filtered, charts)
-    elif opcion_principal == "Aspectos Penitenciarios":
+    elif opcion_principal == "Condiciones Dentro del Centro Penitenciario":
         mostrar_aspecto3(df_filtered, charts)
     elif opcion_principal == "Aspectos Delictivos":
         mostrar_aspecto4(df_filtered, charts)
@@ -103,7 +103,7 @@ def mostrar_aspecto2(df_filtered, charts):
 # Funciones para otros aspectos similares
 def mostrar_aspecto3(df_filtered, charts):
     
-    st.header("Aspectos Penitenciario")
+    st.header("Condiciones Dentro del Centro Penitenciario")
     charts = create_charts(df_filtered)
     tabs = st.tabs(["Condiciones de Vida", "Salud", "Actividades", "Discriminacion","Visitas"])
     
@@ -143,7 +143,7 @@ def mostrar_aspecto3(df_filtered, charts):
 def mostrar_aspecto4(df_filtered, charts):
     st.header("Aspectos delictivos")
     charts = create_charts(df_filtered)
-    tabs = st.tabs(["Delitos", "Demografía y Contexto", "Armas y Consumo", "Otros Aspectos"])
+    tabs = st.tabs(["Delitos", "Situacion Juridica", "Lugar y Motivo del delito", "Armas y Consumo","Consumo de Sustancias","Delitos dentro del penal"])
 
     with tabs[0]:  # Pestaña "Delitos"
         st.plotly_chart(charts['DelGen'])
@@ -151,21 +151,31 @@ def mostrar_aspecto4(df_filtered, charts):
         st.plotly_chart(charts['DelGenero'])
         st.plotly_chart(charts['DelEspGen'])
 
-    with tabs[1]:  # Pestaña "Demografía y Contexto"
+    with tabs[1]:  # Pestaña "Situacion Juridica"
+        
+        st.plotly_chart(charts['inocente-culpable'])           
         st.plotly_chart(charts['SitJuridica'])
         st.plotly_chart(charts['SitJuridicaEsp'])
+     
+        
+        
+    with tabs[2]:  # Pestaña "Lugar y Motivo del delito" 
+        
         st.plotly_chart(charts['Lugar_Delito'])
         st.plotly_chart(charts['Motivo_Delito'])
 
-    with tabs[2]:  # Pestaña "Armas y Consumo"
+    with tabs[3]:  # Pestaña "Armas y Consumo"
         st.plotly_chart(charts['UsoArma']) 
         st.plotly_chart(charts['ArmsFuegInic'])
+        
+    with tabs[4]:  # Pestaña "Consumo de Sustancias"
+        
         st.plotly_chart(charts['ConsumoDrogasDelito'])
 
-    with tabs[3]:  # Pestaña "Otros Aspectos"
+    with tabs[5]:  # Pestaña "Delitos dentro del penal"
 
         st.plotly_chart(charts['Delitos-penal'])
         st.plotly_chart(charts['Internado-juvenil'])
-        st.plotly_chart(charts['inocente-culpable'])
+
         
         
