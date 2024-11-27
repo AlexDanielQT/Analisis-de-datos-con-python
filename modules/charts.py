@@ -10,7 +10,6 @@ def create_charts(df):
                         names=genero_counts.index, 
                         title='Número de Internos según el Género',
                         hole=0.3)  # Added hole to make it a donut chart
-    
     charts['Genero'] = fig_genero
 
     fig_edad = px.histogram(df, 
@@ -402,3 +401,5 @@ def create_charts(df):
     charts['Razon de discriminacion'] = fig_declaracion
     
     return charts
+
+
